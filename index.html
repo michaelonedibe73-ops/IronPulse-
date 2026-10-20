@@ -89,10 +89,29 @@
   </footer>
 
   <script>
-  /** @param {string} id */
-  function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-  }
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // This is the part that makes the buttons work
+    const planButtons = document.querySelectorAll(".select-plan");
+    planButtons.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        // ⚠️ Change this to the gym owner's number if needed
+        const phone = "2348124713885"; 
+        
+        let planName = "";
+        if (index === 0) planName = "Basic (₦15,000/month)";
+        if (index === 1) planName = "Pro (₦25,000/month)";
+        if (index === 2) planName = "Elite (₦40,000/month)";
+
+        const message = `Hello IronPulse! I want to register for the ${planName} membership plan. Please let me know how to proceed.`;
+        
+        // This forces the phone to open WhatsApp
+        window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      });
+    });
   </script>
 </body>
-  </html>
+</html>
