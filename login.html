@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Login — IronPulse</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-box { max-width: 400px; margin: 60px auto; background: #151515; padding: 30px; border-radius: 10px; border: 1px solid #333; }
+    .auth-box h2 { font-family: 'Oswald', sans-serif; margin-bottom: 20px; text-align: center; color: #e63946; }
+    .auth-box input { width: 100%; padding: 12px; margin-bottom: 15px; background: #0a0a0a; border: 1px solid #333; color: white; border-radius: 5px; font-family: inherit; }
+    .auth-box button { width: 100%; padding: 12px; background: #e63946; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    .auth-msg { text-align: center; margin-top: 10px; font-size: 14px; color: #e63946; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><a href="index.html" style="color:white; text-decoration:none;">IRON<span>PULSE</span> 💪</a></div>
+  </header>
+
+  <div class="auth-box">
+    <h2>Member Login</h2>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <button type="submit">Sign In / Register</button>
+    </form>
+    <p id="msg" class="auth-msg"></p>
+  </div>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      
+      // Save to local storage (Fake Auth)
+      const user = { name, email, plan: "Pro Membership", joined: new Date().toLocaleDateString() };
+      localStorage.setItem("ironpulse_user", JSON.stringify(user));
+      
+      document.getElementById("msg").textContent = "Success! Redirecting...";
+      setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
+    });
+  </script>
+</body>
+</html>
