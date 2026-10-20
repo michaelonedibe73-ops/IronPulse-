@@ -10,7 +10,11 @@
 
   <header>
     <div class="logo">IRON<span>PULSE</span> 💪</div>
-    <button class="join-btn" onclick="scrollToSection('pricing')">Join Now</button>
+    <div style="display: flex; gap: 10px;">
+      <!-- The login button changes to Dashboard if logged in -->
+      <a href="login.html" id="nav-login-btn" class="cta-btn" style="padding: 10px 15px; font-size: 14px; text-decoration: none; border-radius: 5px; border: 2px solid #e63946; color: #fff; font-weight: 600;">Login</a>
+      <button class="join-btn" onclick="scrollToSection('pricing')">Join Now</button>
+    </div>
   </header>
 
   <section class="hero">
@@ -89,17 +93,21 @@
   </footer>
 
   <script>
+    // @ts-nocheck
+
+    /** @param {string} id */
+
+    // 1. Smooth Scrolling
     function scrollToSection(id) {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // This is the part that makes the buttons work
+    // 2. WhatsApp Plan Selection
     const planButtons = document.querySelectorAll(".select-plan");
     planButtons.forEach((btn, index) => {
       btn.addEventListener("click", () => {
-        // ⚠️ Change this to the gym owner's number if needed
-        const phone = "2348124713885"; 
+        const phone = "2348124713885"; // Change to gym owner's number
         
         let planName = "";
         if (index === 0) planName = "Basic (₦15,000/month)";
@@ -108,10 +116,19 @@
 
         const message = `Hello IronPulse! I want to register for the ${planName} membership plan. Please let me know how to proceed.`;
         
-        // This forces the phone to open WhatsApp
         window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
       });
     });
+
+    // 3. Check if User is Logged In (Fake Auth)
+    const user = JSON.parse(localStorage.getItem("ironpulse_user"));
+    if (user) {
+      const loginBtn = document.getElementById("nav-login-btn");
+      loginBtn.textContent = "Dashboard";
+      loginBtn.href = "dashboard.html";
+      loginBtn.style.background = "#e63946";
+      loginBtn.style.borderColor = "#e63946";
+    }
   </script>
 </body>
 </html>
