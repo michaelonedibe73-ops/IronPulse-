@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dashboard — IronPulse</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dash-container { padding: 20px; max-width: 600px; margin: auto; }
+    .welcome-card { background: linear-gradient(135deg, #e63946, #8b0000); padding: 25px; border-radius: 10px; margin-bottom: 20px; }
+    .welcome-card h1 { font-family: 'Oswald', sans-serif; font-size: 28px; margin-bottom: 5px; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+    .stat-card { background: #151515; padding: 20px; border-radius: 10px; border: 1px solid #333; }
+    .stat-card h4 { color: #999; font-size: 12px; text-transform: uppercase; margin-bottom: 5px; }
+    .stat-card p { font-size: 18px; font-weight: bold; color: #fff; }
+    .workout-box { background: #151515; padding: 20px; border-radius: 10px; border: 1px solid #333; margin-bottom: 20px; }
+    .workout-box h3 { color: #e63946; margin-bottom: 10px; font-family: 'Oswald', sans-serif; }
+    .workout-box ul { list-style: none; color: #ccc; line-height: 1.8; }
+    .logout-btn { width: 100%; padding: 15px; background: transparent; border: 1px solid #e63946; color: #e63946; font-weight: bold; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><a href="index.html" style="color:white; text-decoration:none;">IRON<span>PULSE</span> 💪</a></div>
+    <a href="index.html" class="join-btn" style="text-decoration:none; padding: 10px 15px;">Home</a>
+  </header>
+
+  <div class="dash-container">
+    <div class="welcome-card">
+      <h1 id="welcome-name">Welcome!</h1>
+      <p>You are crushing your fitness goals.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <h4>Current Plan</h4>
+        <p id="user-plan">Loading...</p>
+      </div>
+      <div class="stat-card">
+        <h4>Member Since</h4>
+        <p id="join-date">Loading...</p>
+      </div>
+    </div>
+
+    <div class="workout-box">
+      <h3>💪 Today's Workout (Chest & Triceps)</h3>
+      <ul>
+        <li>1. Bench Press - 4 sets x 10 reps</li>
+        <li>2. Incline Dumbbell Press - 3 sets x 12 reps</li>
+        <li>3. Tricep Pushdowns - 3 sets x 15 reps</li>
+        <li>4. Cable Flys - 3 sets x 15 reps</li>
+      </ul>
+    </div>
+
+    <button class="logout-btn" id="logout-btn">Log Out</button>
+  </div>
+
+  <script>
+    // Check if user is logged in
+    const user = JSON.parse(localStorage.getItem("ironpulse_user"));
+    
+    if (!user) {
+      // If not logged in, send back to login page
+      window.location.href = "login.html";
+    } else {
+      // Fill in the dashboard details
+      document.getElementById("welcome-name").textContent = "Welcome, " + user.name;
+      document.getElementById("user-plan").textContent = user.plan;
+      document.getElementById("join-date").textContent = user.joined;
+    }
+
+    // Logout logic
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      localStorage.removeItem("ironpulse_user");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
